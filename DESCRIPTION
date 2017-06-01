@@ -14,5 +14,6 @@ URL:
   http://rig.oro.us.com,  http://rigorousanalytics.blogspot.com
 LazyData: true
 LazyDataCompression: gzip
-Remotes: neuroconductor/oro.nifti@c18c47ba869789a3769aa7b40a9e105da98588f7
+Remotes: neuroconductor/oro.nifti@ab8a1e9b60bce9e7e48984a37e7dce607f51fdb0
+biocViews:
 
