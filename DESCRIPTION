@@ -16,5 +16,5 @@ LazyData: true
 LazyDataCompression: gzip
 RoxygenNote: 6.0.1
 biocViews:
-Remotes:  
-    neuroconductor/oro.nifti@654f99fc85fdaf21253e3eca6bfb1678d46f41c9
+Remotes: 
+    neuroconductor/oro.nifti@15b6d610da5856c45fdca71728f2e40f93503f05
