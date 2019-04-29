@@ -1,5 +1,4 @@
 language: r
-sudo: false
 cache: packages
 warnings_are_errors: true
 use_bioc: true
@@ -30,6 +29,7 @@ env:
   - RGL_USE_NULL=TRUE
   - PROJECT_NAME=neuroconductor
   - DISPLAY=:99.0
+  - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
 r_check_args: "--as-cran --install-args=--build"
 before_install:
 - ulimit -n 2048
@@ -41,7 +41,9 @@ before_install:
 - start_xvfb ;
 - export rver=`r_version`; echo $rver ;
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then no_open_mp ; fi
-- jags_install
+- jags_install ;
+- v8_install ;
+- dcmtk_install ;
 - remove_neuroc_packages
 - cat DESCRIPTION
 - install_remotes_no_dep
@@ -56,11 +58,9 @@ before_install:
 - install_python_requirements ;
 - R CMD javareconf ;
 after_success:
-- cat ${PACKAGE_NAME}.Rcheck/00install.out
-- cat ${PACKAGE_NAME}.Rcheck/00check.log
+- dump_logs
 after_failure:
-- cat ${PACKAGE_NAME}.Rcheck/00install.out
-- cat ${PACKAGE_NAME}.Rcheck/00check.log
+- dump_logs
 before_deploy:
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then PKG_TARBALL=$(ls -1t *.tgz | head -n 1);
   PKG_TARBALL_WITH_R=`echo $PKG_TARBALL | sed 's/.tgz/_'"R${rver}"'.tgz/'` ; mv ${PKG_TARBALL}
@@ -78,7 +78,7 @@ deploy:
   on:
     tags: true
   api-key:
-    secure: Fr3CjOxYtA77mNtvX1qKUI1Bp1Hja0+gZn8izCZZ+YOdICFI+vfOo+QOCHpeGcxsbx8seYfTR2XJYxt6WLT6Hu0diH6N1pEVKzyiXkRh3OFXaTzyRG+snQWpekrNk08rdlg28KImtRnxDyTVFesoEc3hm5tTuKHKDivMpivsXbEeUUKCceu4vm4esAIDC4CS/fsNsmhmSBBkpA+zN/q23Aj5kIGGkfKUwPFTcaLSMq8p1mvc24g78NgeuTMSpxPzXrPv/E5M3kdiuI/Lsx7KxNKuIeP2xBo5IHIdfhxWYe7wljjIAFyZ9PUgSF9w83t4VoxaAZT+kA1anfEfgE/gvSh0TfssWUE1KUUzAQBSe2iOujuA0jj6rWCFKIrLKrIVHViqorhQJusQeyaUkZe83rgrlBx7G+Mf9zqq2csO3ow93ay9PeNt13qom3cUnrA1NKor/d9R9ZERe0H+WNY8Ulw0zCUB7dQ6i/9bOjjOb2+n1o/wu9SzqsG7mGiszEOemXAwL2Hkd41fEmuGpu22tAj+36K5Ff6dVchwJAXXpWobILuTZ2tJJQQCpEGKAmecQ2gs2wk6cy7Y7AhU5I2c00nL59Na68NMXkj2xCl68YQZ9pZeJbeF0g5xMorcMAbfvOVNLhoPpDK6nH9tEbY0AWNVmLqfNC62V3xawt8zexw=
+    secure: IAdbwjsKoOsfkSDKyNZ6yCX4EHcwPFkMl5rAWnGrKl/sty9+tidk8gB3ZozENTyI9SZvAPdqVHMeGKmHfJZ8SC3AMk0PC76IKEOwWN0ekMH6Rec9aPUqlH5eKke+sMcfuBi0VBq6jCkTcBueFp4pyN4Hd6vtxpJy0URDTKUi3u8xId6f73wLqSZA1Qj+8vzq4alJpMIOPevRMo0J3NHZlVCS+Js79scPCgZXkkxCZyt6p1tbhU6iYZo90LqB9gRvJE8VXNgSZYwTwSIr5TOUWRBX98bbvUyAB3RiQnv3s1JDANqTMWlrA+oJ0Skx+KbzlMLyquVS36w+f/hY/DBnEyPcmmDUxuZSHOdLdTG+1/ytmt3nvrIu/MOaHrOln8+kHJYj3qirKgNFbzQ3HMEfRIgumm3nPLk2FqlhWamBaATh8s7TIGUsJnaQ1uEiY24jHwtfQTFBxRejOaXiQ8n9+YX0Kz9xbhwy+mj1SQkLZoOitsCp/KQE45n/BlYz68//2FLN7esNhV6/Bpil0X9dZ7Mw/qF0QYRWSHZCl/sv8gJ7OaUf7p03gl3t/rszD1v5e13Ak1M2Z2KB/Xzvt5BYvElC71Z9uE0Bdg42+PZRYN/B5g+SyFIgt7Qu3Jq0Wj4xmvXqRJxLldhiUV0ABVv+Q5u/HxayPJm/J3N5FeQ50FU=
 after_deploy:
 - if [[ "${TRAVIS_OS_NAME}" == "linux" && ${TRAVIS_R_VERSION_STRING} = "release" ]];
   then echo 'covr::coveralls(type = "all", quiet = FALSE)' > neuroc_covr.R ; travis_wait
