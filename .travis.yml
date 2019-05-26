@@ -16,9 +16,9 @@ os:
 - osx
 osx_image: xcode9
 r:
-- 3.2
 - 3.3
 - 3.4
+- 3.5
 - release
 - devel
 matrix:
@@ -74,11 +74,12 @@ deploy:
   provider: releases
   skip_cleanup: true
   file_glob: true
+  overwrite: true
   file: "${PACKAGE_NAME}*.t*gz"
   on:
     tags: true
   api-key:
-    secure: IAdbwjsKoOsfkSDKyNZ6yCX4EHcwPFkMl5rAWnGrKl/sty9+tidk8gB3ZozENTyI9SZvAPdqVHMeGKmHfJZ8SC3AMk0PC76IKEOwWN0ekMH6Rec9aPUqlH5eKke+sMcfuBi0VBq6jCkTcBueFp4pyN4Hd6vtxpJy0URDTKUi3u8xId6f73wLqSZA1Qj+8vzq4alJpMIOPevRMo0J3NHZlVCS+Js79scPCgZXkkxCZyt6p1tbhU6iYZo90LqB9gRvJE8VXNgSZYwTwSIr5TOUWRBX98bbvUyAB3RiQnv3s1JDANqTMWlrA+oJ0Skx+KbzlMLyquVS36w+f/hY/DBnEyPcmmDUxuZSHOdLdTG+1/ytmt3nvrIu/MOaHrOln8+kHJYj3qirKgNFbzQ3HMEfRIgumm3nPLk2FqlhWamBaATh8s7TIGUsJnaQ1uEiY24jHwtfQTFBxRejOaXiQ8n9+YX0Kz9xbhwy+mj1SQkLZoOitsCp/KQE45n/BlYz68//2FLN7esNhV6/Bpil0X9dZ7Mw/qF0QYRWSHZCl/sv8gJ7OaUf7p03gl3t/rszD1v5e13Ak1M2Z2KB/Xzvt5BYvElC71Z9uE0Bdg42+PZRYN/B5g+SyFIgt7Qu3Jq0Wj4xmvXqRJxLldhiUV0ABVv+Q5u/HxayPJm/J3N5FeQ50FU=
+    secure: gWLMOqovHws8S/yNxCLEuSSwrNNncZ5EIpa6HDuNeIa421WcXvp0x80NjgClw5kDCF9ajJM1tGhknEYDWHKlM03k4Ed+l1HSWbYU3NMdhqYI6mAubNGBxqaYOLKbdguexrVKzDGsHqs6zHfHtRKf7abTSbr9LYqb1sxHvigIYRZxOA2uhKjU6zc0w+aLDOP/+t/W6yr/ooPCj6QjHrdK3I8+p+1ReT5kvnRYM5yEEPrU6B5xhY2EAZnrMR4WmBGKAP7bF62MzIpIUEfSkQddmfcdXk8wdZx0MiWPOFpTdK9oE9842ZEd4Yh8YGN0N6qk0Emta16pvb9YzyMq/LflD/9LTHi+FGPi93qoQvAwqmgK1vdiAbmRFnTwUGi/XYJy+CJUyVvitbUXakcC9ounB1yl8V+gHDTeAbrMyTB0s51g78nWD87c8E9VRG2eU1vGHYP9rkzQ1Jj+2LdoyMzP+Kf/cGGBHLmByh9gwWSbPRuhJaVPGlc87djPCDrbD37SNzDdVOfsR5k7Djj17YQwnduFsnvWAOsLnREM4NPcvuonxiscMQgF3zEs4nhv/0TP+T6NoQTjuOUpkNrULZ4OJppI2M7a0nppKblLQad+zpmlbFWxBWpYy1E/e/f3RmsgIQdafEbbvtZbxdt/lqxlwDG6zA/xZSTIdbM4Ad6DmRM=
 after_deploy:
 - if [[ "${TRAVIS_OS_NAME}" == "linux" && ${TRAVIS_R_VERSION_STRING} = "release" ]];
   then echo 'covr::coveralls(type = "all", quiet = FALSE)' > neuroc_covr.R ; travis_wait
