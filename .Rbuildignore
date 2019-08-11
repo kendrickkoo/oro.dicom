@@ -1,10 +1,10 @@
-^\./appveyor\.yml\.bak$
-^appveyor\.yml$
-^\./\.travis\.yml\.bak$
-^DESCRIPTION\.bak$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^README.md
 ^vignettes/*\.bbl$
 ^vignettes/*\.blg$
+^DESCRIPTION\.bak$
+^\./\.travis\.yml\.bak$
+^appveyor\.yml$
+^\./appveyor\.yml\.bak$
