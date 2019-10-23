@@ -5,10 +5,7 @@ Title: Rigorous - DICOM Input / Output
 Authors@R: c(person("Brandon", "Whitcher", role = c("aut", "cre"),
         email = "bwhitcher@gmail.com"))
 Depends: R (>= 2.14.0)
-Suggests: 
-    testthat,
-    hwriter,
-    covr
+Suggests: testthat, hwriter
 Imports: utils, oro.nifti (>= 0.4.0)
 Description: Data input/output functions for data that conform to the
         Digital Imaging and Communications in Medicine (DICOM)
@@ -19,7 +16,4 @@ LazyData: true
 LazyDataCompression: gzip
 Encoding: UTF-8
 RoxygenNote: 6.1.1
-Repository: Neuroconductor
-Remotes: 
-    neuroconductor/oro.nifti@59bdaa67daeeaa3153bc2f19e2a2c0ea8c8286d0
-biocViews: 
+Remotes:
