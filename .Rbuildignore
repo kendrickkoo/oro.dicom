@@ -6,3 +6,4 @@
 ^vignettes/*\.blg$
 ^DESCRIPTION\.bak$
 ^\./\.travis\.yml\.bak$
+^appveyor\.yml$
