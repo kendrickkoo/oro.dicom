@@ -220,6 +220,9 @@ extractHeader <- function(hdrs, string, numeric=TRUE, names=FALSE,
 #' 
 #' @export header2matrix
 header2matrix <- function(hdr, ncol, sep=" ", byrow=TRUE) {
+  if(sep == " "){
+    hdr <- gsub("  ", " ", hdr)
+  }
   matrix(as.numeric(unlist(strsplit(hdr, sep))), ncol=ncol, byrow=byrow)
 }
 
